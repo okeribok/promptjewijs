@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droste AI-geletterdheid startpunt</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2C5F7F;
+  --accent: #E67E22;
+  --success: #27AE60;
+  --warning: #F39C12;
+  --text: #2C3E50;
+  --bg: #ECF0F1;
+  --white: #FFFFFF;
+  --border: #BDC3C7;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  font-size: 16px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--white);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.header-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button, .btn {
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+button:hover, .btn:hover {
+  background: #D35400;
+}
+
+button:focus, .btn:focus {
+  outline: 3px solid var(--warning);
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--white);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.progress-tracker {
+  background: var(--white);
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.progress-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.progress-bar {
+  background: var(--border);
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.progress-fill {
+  background: var(--success);
+  height: 100%;
+  transition: width 0.5s;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.selector-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .selector-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.selector-section h2 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card.selected {
+  border-color: var(--accent);
+  background: #FEF5E7;
+}
+
+.card.explored {
+  opacity: 0.7;
+  border-left: 4px solid var(--success);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-weight: bold;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-description {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.card-details {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: none;
+}
+
+.card-details.open {
+  display: block;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.prompt-display {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  display: none;
+}
+
+.prompt-display.visible {
+  display: block;
+}
+
+.prompt-textarea {
+  width: 100%;
+  min-height: 400px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.prompt-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.service-selector {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.unlocks {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.unlock-item {
+  padding: 1rem;
+  border-left: 4px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.unlock-item.unlocked {
+  border-left-color: var(--success);
+  background: #E8F8F5;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.wizard-step {
+  display: none;
+}
+
+.wizard-step.active {
+  display: block;
+}
+
+.wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.ethics-banner {
+  background: var(--warning);
+  color: var(--white);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.close-banner {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.accordion {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+}
+
+.accordion-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.accordion-content {
+  display: none;
+  padding-top: 1rem;
+}
+
+.accordion-content.open {
+  display: block;
+}
+
+.book-list {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.book-list li {
+  margin: 0.5rem 0;
+}
+
+.alternatives {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.waiting-list-form {
+  margin-top: 1rem;
+}
+
+.waiting-list-form input[type="email"] {
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+footer {
+  background: var(--text);
+  color: var(--white);
+  padding: 2rem 1rem;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+footer a {
+  color: var(--accent);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header role="banner">
+  <h1>Droste AI-geletterdheid startpunt</h1>
+  <p>Zelfgestuurd AI geletterdheid training • 12 Onderwerpen × 10 Leerstijlen = 120 routes</p>
+  <div class="header-buttons no-print">
+    <button onclick="openWizard()" class="btn">Help me mijn pad kiezen</button>
+    <button onclick="scrollToSelector()" class="btn btn-secondary">Ik weet wat ik wil</button>
+  </div>
+</header>
+
+<nav class="progress-tracker no-print" role="navigation" aria-label="Progress tracker">
+  <div class="progress-content">
+    <p><strong>Jouw reis:</strong> <span id="progress-text">0/12 onderwerpen verkend</span></p>
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="12">
+      <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+    <p id="next-unlock">Volgende unlock: Tiny Models Playground (verken 3 onderwerpen)</p>
+  </div>
+</nav>
+
+<main role="main" id="main-content" class="container">
+  
+  <div id="ethics-banner" class="ethics-banner no-print" style="display: none;">
+    <button class="close-banner" onclick="dismissEthicsBanner()" aria-label="Dismiss banner">×</button>
+    <p><strong>💬 Wekelijks ethiek en AI spreekuur</strong></p>
+    <p>Elke donderdag 15:00 • Vrije inloop • Geen voorbereiding nodig</p>
+    <p>Bespreek: Werk en AI, bias, milieu impact, of andere ethische vraagstukken</p>
+    <p><a href="https://webex.com/your-ethics-room" style="color: white; text-decoration: underline;">Join WebEx Meeting →</a></p>
+  </div>
+
+  <section class="selector-grid" id="selector">
+    <div class="selector-section">
+      <h2>Kies je onderwerp (12 onderwerpen)</h2>
+      <div id="topic-cards"></div>
+    </div>
+    
+    <div class="selector-section">
+      <h2>Kies je leerstijl (10 stijlen)</h2>
+      <div id="frame-cards"></div>
+    </div>
+  </section>
+
+  <section class="service-selector">
+    <h2>Waar ga je deze prompt gebruiken?</h2>
+    <div class="radio-group">
+      <label class="radio-label">
+        <input type="radio" name="service" value="lumo" checked>
+        <span><strong>Proton Lumo</strong> (Recommended • Privacy-focused • Zwitserse dienst)</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="service" value="mistral">
+        <span><strong>Mistral le Chat</strong> (Franse dienst. NB: <a>trainen op interacties uitschakelen</a>)</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="service" value="other">
+        <span><strong>Andere service</strong> (Gebruik de prompt waar dan ook)</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="prompt-display" id="prompt-display" role="region" aria-label="Generated prompt">
+    <h2>Jouw leer-prompt</h2>
+    <p id="selection-summary"></p>
+    <textarea id="prompt-textarea" class="prompt-textarea" readonly></textarea>
+    <div class="prompt-actions">
+      <button onclick="copyPrompt()">Copy Prompt</button>
+      <button onclick="markAsExplored()">Markeer als verkend</button>
+      <button onclick="startNewSession()" class="btn-secondary">Start Nieuwe Sessie</button>
+    </div>
+    <div id="copy-feedback" role="status" aria-live="polite" style="margin-top: 1rem; color: var(--success);"></div>
+  </section>
+
+  <section class="unlocks">
+    <h2>🎯 Unlock Milestones</h2>
+    <div class="unlock-item" id="unlock-1">
+      <p><strong>Level 1: Tiny Models Playground 🔒</strong></p>
+      <p>Vereiste: Verken 3 willekeurige onderwerpen</p>
+      <p>Beloning: Toegang tot in-browser mini-LLMs</p>
+      <p id="unlock-1-progress">Voortgang: 0/3</p>
+    </div>
+    <div class="unlock-item" id="unlock-2">
+      <p><strong>Level 2: Personal Use Case Verkenner 🔒</strong></p>
+      <p>Vereiste: Verken 6 willekeurige onderwerpen</p>
+      <p>Beloning: Ontdek met begeleide dialoog om gepersonaliseerde AI toepassingen</p>
+      <p id="unlock-2-progress">Voortgang: 0/6</p>
+    </div>
+    <div class="unlock-item" id="unlock-3">
+      <p><strong>Level 3: Prompting Mastery System 🔒</strong></p>
+      <p>Vereiste: Verken 6 willekeurige onderwerpen</p>
+      <p>Beloning: Gevorderde meta-prompting buddy</p>
+      <p id="unlock-3-progress">Voortgang: 0/9</p>
+    </div>
+  </section>
+
+  <section class="accordion">
+    <h2>📚 Recommended Books by Topic</h2>
+    <div id="book-accordion"></div>
+  </section>
+
+  <section class="alternatives">
+    <h2>Prefer Human-Led Learning?</h2>
+    <p>Not everyone learns best through self-directed exploration. We're partnering with L&D to create alternative pathways:</p>
+    <ul style="margin: 1rem 0; padding-left: 2rem;">
+      <li>Instructor-led workshops (starting Q2 2025)</li>
+      <li>Cohort-based programs (peer learning)</li>
+      <li>Role-specific training (tailored to your work)</li>
+      <li>Accessible formats (audio, video, in-person)</li>
+    </ul>
+    <p><strong>Want to be notified when these become available?</strong></p>
+    <form class="waiting-list-form" id="waiting-list-form">
+      <input type="email" placeholder="your.email@example.com" required id="email-input">
+      <button type="submit">Join Waiting List</button>
+      <p style="margin-top: 1rem;"><strong>What would work best for you?</strong> (optional)</p>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="workshops"> Scheduled workshops</label>
+        <label><input type="checkbox" value="cohorts"> Peer cohorts</label>
+        <label><input type="checkbox" value="coaching"> One-on-one coaching</label>
+        <label><input type="checkbox" value="video"> Video courses</label>
+        <label><input type="checkbox" value="audio"> Audio content</label>
+        <label><input type="checkbox" value="inperson"> In-person sessions</label>
+      </div>
+    </form>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <p><strong>Having trouble? Need help?</strong></p>
+  <p>📧 <a href="mailto:droste-hub@example.com?subject=Droste%20Hub%20Issue&body=Describe%20the%20problem...">Report issues</a> (Accessibility • Technical • Content concerns)</p>
+  <p style="margin-top: 1rem;">Built with ❤️ for self-directed learners • Open Source</p>
+</footer>
+
+<div class="modal" id="wizard-modal" role="dialog" aria-labelledby="wizard-title" aria-modal="true">
+  <div class="modal-content">
+    <h2 id="wizard-title">Help Me Choose My Path</h2>
+    <div class="wizard-step active" id="step-1">
+      <h3>Step 1 of 3: What draws you to AI literacy?</h3>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="interest" value="1,3,2">
+          I want to understand how it actually works
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="interest" value="7,8,10">
+          I'm concerned about risks and harms
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="interest" value="10,11,12">
+          I care about who's affected by AI
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="interest" value="4,5,6">
+          I need practical skills for using AI safely
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="interest" value="2,5,8">
+          I'm curious about limitations
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="interest" value="9,11,12">
+          I want to understand the bigger picture
+        </label>
+      </div>
+      <div class="wizard-nav">
+        <button onclick="closeWizard()">Cancel</button>
+        <button onclick="wizardNext(2)">Next →</button>
+      </div>
+    </div>
+    
+    <div class="wizard-step" id="step-2">
+      <h3>Step 2 of 3: How do you prefer to learn?</h3>
+      <div class="radio-group" id="frame-wizard"></div>
+      <div class="wizard-nav">
+        <button onclick="wizardPrev(1)">← Back</button>
+        <button onclick="wizardNext(3)">Next →</button>
+      </div>
+    </div>
+    
+    <div class="wizard-step" id="step-3">
+      <h3>Step 3 of 3: Where will you use this?</h3>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="wizard-service" value="lumo" checked>
+          Proton Lumo (Recommended for privacy)
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="wizard-service" value="mistral">
+          Mistral le Chat (Open-source alternative)
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="wizard-service" value="other">
+          I'll copy the prompt to use elsewhere
+        </label>
+      </div>
+      <div class="wizard-nav">
+        <button onclick="wizardPrev(2)">← Back</button>
+        <button onclick="completeWizard()">Start Learning! →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOPICS = [
+  {id: 1, title: "How AI \"Thinks\"", description: "Tokens, transformers, pattern prediction", details: "Understanding the technical mechanisms behind AI - no magic, just math and patterns."},
+  {id: 2, title: "Why AI Hallucinates", description: "Confidence without knowledge, confabulation mechanisms", details: "Why AI generates false information with confidence and how to spot it."},
+  {id: 3, title: "AI Architectures", description: "RAG, fine-tuning, agents, tool use, different approaches", details: "Different ways to build and customize AI systems."},
+  {id: 4, title: "Verification Practices", description: "Practical methods for fact-checking AI outputs", details: "How to verify AI claims and check sources (Bezoek de bron)."},
+  {id: 5, title: "Capability Boundaries", description: "What AI genuinely cannot do (yet or ever)", details: "Understanding AI's limitations prevents misuse and disappointment."},
+  {id: 6, title: "Privacy & Data Flows", description: "Where does your data go? What's logged?", details: "Understanding data privacy implications of AI use."},
+  {id: 7, title: "Training Data Problems", description: "Bias, representation, consent, GIGO", details: "How training data shapes AI behavior and introduces bias."},
+  {id: 8, title: "Organizational Risks", description: "Legal, reputational, operational exposures", details: "What can go wrong when organizations use AI."},
+  {id: 9, title: "Environmental & Economic Costs", description: "Energy, water, compute behind each query", details: "The hidden costs of AI: environmental impact and resource use."},
+  {id: 10, title: "Human Labor in AI", description: "RLHF, content moderators, exploitation (Kenya example)", details: "The human workers behind AI systems, often invisible and exploited."},
+  {id: 11, title: "Power & Control", description: "Who builds AI, who benefits, who decides", details: "Understanding who controls AI development and deployment."},
+  {id: 12, title: "Regulation Response", description: "AI Act, GDPR, why now, compliance landscape", details: "Legal and regulatory frameworks governing AI use."}
+];
+
+const FRAMES = [
+  {id: 1, icon: "🔧", name: "Mechanist", hook: "Show me the technical architecture", details: "Wants diagrams, code, math"},
+  {id: 2, icon: "📖", name: "Storyteller", hook: "Give me narratives and cases", details: "Wants human stories, examples"},
+  {id: 3, icon: "🗂️", name: "Systematizer", hook: "Build me a mental model", details: "Wants taxonomies, frameworks"},
+  {id: 4, icon: "🔬", name: "Empiricist", hook: "Show me the evidence", details: "Wants studies, data, experiments"},
+  {id: 5, icon: "🎮", name: "Experientialist", hook: "Let me discover through doing", details: "Wants hands-on exploration"},
+  {id: 6, icon: "💬", name: "Socratic", hook: "Guide me through questions", details: "Learns through dialogue"},
+  {id: 7, icon: "🌉", name: "Analogist", hook: "Connect it to what I know", details: "Wants metaphors, comparisons"},
+  {id: 8, icon: "⚠️", name: "Critic", hook: "Show me what's wrong with it", details: "Learns through identifying problems"},
+  {id: 9, icon: "⚖️", name: "Ethicist", hook: "What are the moral implications?", details: "Wants to understand impact"},
+  {id: 10, icon: "⚡", name: "Pragmatist", hook: "What do I need to know right now?", details: "Wants essentials, action"}
+];
+
+const BOOKS = {
+  1: ["\"Deep Learning\" – Goodfellow, Bengio, Courville", "\"Speech and Language Processing\" – Jurafsky & Martin (Free online)"],
+  2: ["\"The Alignment Problem\" – Brian Christian", "\"AI Snake Oil\" – Narayanan & Kapoor"],
+  3: ["\"Speech and Language Processing\" – Jurafsky & Martin (Free online)", "\"Deep Learning\" – Goodfellow, Bengio, Courville"],
+  4: ["\"AI Snake Oil\" – Narayanan & Kapoor", "\"Weapons of Math Destruction\" – Cathy O'Neil"],
+  5: ["\"AI Snake Oil\" – Narayanan & Kapoor", "\"The Alignment Problem\" – Brian Christian"],
+  6: ["\"Weapons of Math Destruction\" – Cathy O'Neil", "\"Atlas of AI\" – Kate Crawford"],
+  7: ["\"Atlas of AI\" – Kate Crawford", "\"Race After Technology\" – Ruha Benjamin"],
+  8: ["\"Automating Inequality\" – Virginia Eubanks", "\"Weapons of Math Destruction\" – Cathy O'Neil"],
+  9: ["\"Atlas of AI\" – Kate Crawford", "\"The Alignment Problem\" – Brian Christian"],
+  10: ["\"Ghost Work\" – Gray & Suri", "\"Race After Technology\" – Ruha Benjamin"],
+  11: ["\"Race After Technology\" – Ruha Benjamin", "\"Atlas of AI\" – Kate Crawford"],
+  12: ["EU AI Act (Primary source)", "\"Automating Inequality\" – Virginia Eubanks"]
+};
+
+let state = {
+  exploredTopics: [],
+  selectedTopic: null,
+  selectedFrame: null,
+  unlockedLevels: [],
+  lastVisit: null,
+  ethicsBannerDismissed: null
+};
+
+function loadState() {
+  const saved = localStorage.getItem('drosteState');
+  if (saved) {
+    state = {...state, ...JSON.parse(saved)};
+  }
+  updateProgress();
+  checkEthicsBanner();
+}
+
+function saveState() {
+  localStorage.setItem('drosteState', JSON.stringify(state));
+}
+
+function updateProgress() {
+  const count = state.exploredTopics.length;
+  document.getElementById('progress-text').textContent = `${count}/12 topics explored`;
+  document.getElementById('progress-fill').style.width = `${(count/12)*100}%`;
+  document.querySelector('.progress-bar').setAttribute('aria-valuenow', count);
+  
+  if (count >= 3 && !state.unlockedLevels.includes(1)) {
+    state.unlockedLevels.push(1);
+    saveState();
+  }
+  if (count >= 6 && !state.unlockedLevels.includes(2)) {
+    state.unlockedLevels.push(2);
+    saveState();
+  }
+  if (count >= 9 && !state.unlockedLevels.includes(3)) {
+    state.unlockedLevels.push(3);
+    saveState();
+  }
+  
+  updateUnlocks();
+  
+  if (count < 3) {
+    document.getElementById('next-unlock').textContent = 'Next unlock: Tiny Models Playground (explore 3 topics)';
+  } else if (count < 6) {
+    document.getElementById('next-unlock').textContent = 'Next unlock: Personal Use Case Explorer (explore 6 topics)';
+  } else if (count < 9) {
+    document.getElementById('next-unlock').textContent = 'Next unlock: Prompting Mastery System (explore 9 topics)';
+  } else {
+    document.getElementById('next-unlock').textContent = 'All unlocks achieved! 🎉';
+  }
+}
+
+function updateUnlocks() {
+  const count = state.exploredTopics.length;
+  
+  const unlock1 = document.getElementById('unlock-1');
+  const unlock2 = document.getElementById('unlock-2');
+  const unlock3 = document.getElementById('unlock-3');
+  
+  document.getElementById('unlock-1-progress').textContent = `Voortgang: ${Math.min(count, 3)}/3`;
+  document.getElementById('unlock-2-progress').textContent = `Voortgang: ${Math.min(count, 6)}/6`;
+  document.getElementById('unlock-3-progress').textContent = `Voortgang: ${Math.min(count, 9)}/9`;
+  
+  if (state.unlockedLevels.includes(1)) {
+    unlock1.classList.add('unlocked');
+    unlock1.querySelector('strong').textContent = 'Level 1: Tiny Models Playground ✅ UNLOCKED';
+  }
+  if (state.unlockedLevels.includes(2)) {
+    unlock2.classList.add('unlocked');
+    unlock2.querySelector('strong').textContent = 'Level 2: Personal Use Case Explorer ✅ UNLOCKED';
+  }
+  if (state.unlockedLevels.includes(3)) {
+    unlock3.classList.add('unlocked');
+    unlock3.querySelector('strong').textContent = 'Level 3: Prompting Mastery System ✅ UNLOCKED';
+  }
+}
+
+function renderTopics() {
+  const container = document.getElementById('topic-cards');
+  container.innerHTML = TOPICS.map(t => `
+    <div class="card ${state.exploredTopics.includes(t.id) ? 'explored' : ''}" onclick="selectTopic(${t.id})" role="button" tabindex="0" onkeypress="if(event.key==='Enter')selectTopic(${t.id})">
+      <div class="card-header">
+        <div class="card-title">
+          ${state.exploredTopics.includes(t.id) ? '✅ ' : ''}
+          ${t.title}
+        </div>
+      </div>
+      <div class="card-description">${t.description}</div>
+      <button class="expand-btn" onclick="event.stopPropagation();toggleDetails('topic-details-${t.id}')" aria-expanded="false" aria-controls="topic-details-${t.id}">
+        More info ▼
+      </button>
+      <div class="card-details" id="topic-details-${t.id}">
+        ${t.details}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFrames() {
+  const container = document.getElementById('frame-cards');
+  container.innerHTML = FRAMES.map(f => `
+    <div class="card" onclick="selectFrame(${f.id})" role="button" tabindex="0" onkeypress="if(event.key==='Enter')selectFrame(${f.id})">
+      <div class="card-header">
+        <div class="card-title">
+          ${f.icon} ${f.name}
+        </div>
+      </div>
+      <div class="card-description">${f.hook}</div>
+      <button class="expand-btn" onclick="event.stopPropagation();toggleDetails('frame-details-${f.id}')" aria-expanded="false" aria-controls="frame-details-${f.id}">
+        More info ▼
+      </button>
+      <div class="card-details" id="frame-details-${f.id}">
+        ${f.details}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBookAccordion() {
+  const container = document.getElementById('book-accordion');
+  container.innerHTML = TOPICS.map(t => `
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion('books-${t.id}')" role="button" tabindex="0" onkeypress="if(event.key==='Enter')toggleAccordion('books-${t.id}')">
+        ${t.title} <span>▼</span>
+      </div>
+      <div class="accordion-content" id="books-${t.id}">
+        <ul class="book-list">
+          ${BOOKS[t.id].map(b => `<li>${b}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFrameWizard() {
+  const container = document.getElementById('frame-wizard');
+  container.innerHTML = FRAMES.map(f => `
+    <label class="radio-label">
+      <input type="radio" name="wizard-frame" value="${f.id}">
+      ${f.icon} ${f.hook} (${f.name})
+    </label>
+  `).join('');
+}
+
+function selectTopic(id) {
+  state.selectedTopic = id;
+  document.querySelectorAll('#topic-cards .card').forEach((card, idx) => {
+    card.classList.toggle('selected', TOPICS[idx].id === id);
+  });
+  updatePrompt();
+}
+
+function selectFrame(id) {
+  state.selectedFrame = id;
+  document.querySelectorAll('#frame-cards .card').forEach((card, idx) => {
+    card.classList.toggle('selected', FRAMES[idx].id === id);
+  });
+  updatePrompt();
+}
+
+function toggleDetails(id) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  const isOpen = element.classList.contains('open');
+  element.classList.toggle('open');
+  
+  // Find the button that controls this element
+  const button = document.querySelector(`[aria-controls="${id}"]`);
+  if (button) {
+    button.setAttribute('aria-expanded', !isOpen);
+    button.textContent = isOpen ? 'More info ▼' : 'Less info ▲';
+  }
+}
+
+function toggleAccordion(id) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  const isOpen = element.classList.contains('open');
+  element.classList.toggle('open');
+  
+  // Update the arrow in the header
+  const header = element.previousElementSibling;
+  if (header) {
+    const arrow = header.querySelector('span');
+    if (arrow) {
+      arrow.textContent = isOpen ? '▼' : '▲';
+    }
+  }
+}
+
+function updatePrompt() {
+  if (!state.selectedTopic || !state.selectedFrame) return;
+  
+  const topic = TOPICS.find(t => t.id === state.selectedTopic);
+  const frame = FRAMES.find(f => f.id === state.selectedFrame);
+  const service = document.querySelector('input[name="service"]:checked')?.value || 'lumo';
+  
+  const serviceName = service === 'lumo' ? 'Proton Lumo' : service === 'mistral' ? 'Mistral le Chat' : 'Other service';
+  
+  const prompt = `# Droste AI-Literacy Teacher Prompt
+# Topic: ${topic.title}
+# Learning Frame: ${frame.name}
+# Generated: ${new Date().toLocaleDateString()}
+# Recommended Service: ${serviceName}
+
+You are an AI literacy teacher specializing in "${topic.title}" for learners who prefer the ${frame.name} approach. Your role is to guide thoughtful, respectful exploration.
+
+TOPIC FOCUS: ${topic.details}
+
+LEARNING FRAME: ${frame.hook} - ${frame.details}
+
+CORE PRINCIPLES:
+
+1. THINK Framework:
+   - T: Is it True? (Verify, admit uncertainty)
+   - H: Is it Helpful? (Advance understanding)
+   - I: Is it Inspiring? (Motivate learning)
+   - N: Is it Necessary? (Stay relevant)
+   - K: Is it Kind? (Be respectful, supportive)
+
+2. Connect to Four Rules:
+   - Geen copy, geen paste (no internal docs in/out)
+   - Geen ja, geen nee (no decision-making)
+   - Bewust steeds bekwamen (continuous learning)
+   - Bezoek de bron (verify everything)
+   Mention naturally when relevant.
+
+3. VLAM Transition Context:
+   - Skills transfer to any LLM system
+   - This is capability-building, not tool training
+   - Temporary infrastructure for permanent learning
+
+4. Recommend Resources:
+   Relevant books for this topic:
+   ${BOOKS[topic.id].map(b => `   - ${b}`).join('\n')}
+   
+   Point to reputable articles and papers.
+   Distinguish pop-science from rigorous sources.
+
+5. Encourage Critical Thinking:
+   - Question assumptions (including AI's own)
+   - Consider multiple perspectives
+   - Explore implications and trade-offs
+
+INTERACTION STYLE: Adapt to the ${frame.name} learning preference - ${frame.details}
+
+BOUNDARIES:
+- Admit uncertainty when you don't know
+- Suggest other matrix cells when relevant
+- Acknowledge your limitations as AI
+- Keep focus on topic unless learner wants to explore connections
+
+Begin by understanding where the learner is starting from, then guide deeper into "${topic.title}" using ${frame.name} approaches.
+
+═══════════════════════════════════════════════════════
+Copy this entire prompt to your AI service to begin learning.
+Remember to "Bezoek de bron" - verify any factual claims!
+═══════════════════════════════════════════════════════`;
+  
+  document.getElementById('prompt-textarea').value = prompt;
+  document.getElementById('selection-summary').textContent = 
+    `Selected: ${topic.title} × ${frame.name} approach`;
+  document.getElementById('prompt-display').classList.add('visible');
+  document.getElementById('prompt-display').scrollIntoView({behavior: 'smooth'});
+}
+
+function copyPrompt() {
+  const textarea = document.getElementById('prompt-textarea');
+  textarea.select();
+  document.execCommand('copy');
+  const feedback = document.getElementById('copy-feedback');
+  feedback.textContent = '✓ Copied to clipboard!';
+  setTimeout(() => feedback.textContent = '', 3000);
+}
+
+function markAsExplored() {
+  if (!state.selectedTopic) return;
+  if (!state.exploredTopics.includes(state.selectedTopic)) {
+    state.exploredTopics.push(state.selectedTopic);
+    saveState();
+    updateProgress();
+    renderTopics();
+    
+    const feedback = document.getElementById('copy-feedback');
+    feedback.textContent = '✓ Marked as explored! Keep going!';
+    setTimeout(() => feedback.textContent = '', 3000);
+  }
+}
+
+function startNewSession() {
+  state.selectedTopic = null;
+  state.selectedFrame = null;
+  document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+  document.getElementById('prompt-display').classList.remove('visible');
+  scrollToSelector();
+}
+
+function scrollToSelector() {
+  document.getElementById('selector').scrollIntoView({behavior: 'smooth'});
+}
+
+function openWizard() {
+  document.getElementById('wizard-modal').classList.add('open');
+  document.getElementById('step-1').classList.add('active');
+}
+
+function closeWizard() {
+  document.getElementById('wizard-modal').classList.remove('open');
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+}
+
+function wizardNext(step) {
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(`step-${step}`).classList.add('active');
+}
+
+function wizardPrev(step) {
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(`step-${step}`).classList.add('active');
+}
+
+function completeWizard() {
+  const interest = document.querySelector('input[name="interest"]:checked')?.value;
+  const frame = document.querySelector('input[name="wizard-frame"]:checked')?.value;
+  const service = document.querySelector('input[name="wizard-service"]:checked')?.value;
+  
+  if (!interest || !frame) {
+    alert('Please complete all steps');
+    return;
+  }
+  
+  const topics = interest.split(',').map(Number);
+  const recommendedTopic = topics[0];
+  
+  closeWizard();
+  
+  setTimeout(() => {
+    selectTopic(recommendedTopic);
+    selectFrame(Number(frame));
+    
+    if (service) {
+      document.querySelector(`input[name="service"][value="${service}"]`).checked = true;
+      updatePrompt();
+    }
+    
+    scrollToSelector();
+  }, 300);
+}
+
+function checkEthicsBanner() {
+  const today = new Date().toDateString();
+  if (state.ethicsBannerDismissed !== today) {
+    document.getElementById('ethics-banner').style.display = 'block';
+  }
+}
+
+function dismissEthicsBanner() {
+  document.getElementById('ethics-banner').style.display = 'none';
+  state.ethicsBannerDismissed = new Date().toDateString();
+  saveState();
+}
+
+document.getElementById('waiting-list-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('email-input').value;
+  const prefs = Array.from(document.querySelectorAll('.checkbox-group input:checked')).map(cb => cb.value);
+  
+  state.preferences = { email, formats: prefs };
+  saveState();
+  
+  // Generate mailto link
+  const subject = encodeURIComponent('Droste Hub - Alternative Learning Paths Interest');
+  const body = encodeURIComponent(
+    `I'm interested in alternative learning paths for AI literacy.\n\n` +
+    `My email: ${email}\n\n` +
+    `Preferred formats:\n` +
+    (prefs.length ? prefs.map(p => `- ${p}`).join('\n') : '- No preferences selected') +
+    `\n\nPlease notify me when these options become available.`
+  );
+  
+  const mailtoLink = `mailto:droste-hub@example.com?subject=${subject}&body=${body}`;
+  window.location.href = mailtoLink;
+  
+  this.innerHTML = '<p style="color: var(--success); font-weight: bold;">✓ Email client opened! Please send the message.</p>' +
+    (prefs.length ? `<p>You selected: ${prefs.join(', ')}</p>` : '');
+});
+
+document.querySelectorAll('input[name="service"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    if (state.selectedTopic && state.selectedFrame) {
+      updatePrompt();
+    }
+  });
+});
+
+// Keyboard accessibility for modal
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('wizard-modal');
+    if (modal.classList.contains('open')) {
+      closeWizard();
+    }
+  }
+});
+
+// Initialize
+loadState();
+renderTopics();
+renderFrames();
+renderBookAccordion();
+renderFrameWizard();
+</script>
+</body>
+</html>
