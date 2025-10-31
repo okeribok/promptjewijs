@@ -472,13 +472,7 @@ footer a {
 
 <main role="main" id="main-content" class="container">
   
-  <div id="ethics-banner" class="ethics-banner no-print" style="display: none;">
-    <button class="close-banner" onclick="dismissEthicsBanner()" aria-label="Dismiss banner">×</button>
-    <p><strong>💬 Wekelijks ethiek en AI spreekuur</strong></p>
-    <p>Elke donderdag 15:00 • Vrije inloop • Geen voorbereiding nodig</p>
-    <p>Bespreek: Werk en AI, bias, milieu impact, of andere ethische vraagstukken</p>
-    <p><a href="https://webex.com/your-ethics-room" style="color: white; text-decoration: underline;">Join WebEx Meeting →</a></p>
-  </div>
+
 
   <section class="selector-grid" id="selector">
     <div class="selector-section">
@@ -549,104 +543,79 @@ footer a {
     <div id="book-accordion"></div>
   </section>
 
-  <section class="alternatives">
-    <h2>Prefer Human-Led Learning?</h2>
-    <p>Not everyone learns best through self-directed exploration. We're partnering with L&D to create alternative pathways:</p>
-    <ul style="margin: 1rem 0; padding-left: 2rem;">
-      <li>Instructor-led workshops (starting Q2 2025)</li>
-      <li>Cohort-based programs (peer learning)</li>
-      <li>Role-specific training (tailored to your work)</li>
-      <li>Accessible formats (audio, video, in-person)</li>
-    </ul>
-    <p><strong>Want to be notified when these become available?</strong></p>
-    <form class="waiting-list-form" id="waiting-list-form">
-      <input type="email" placeholder="your.email@example.com" required id="email-input">
-      <button type="submit">Join Waiting List</button>
-      <p style="margin-top: 1rem;"><strong>What would work best for you?</strong> (optional)</p>
-      <div class="checkbox-group">
-        <label><input type="checkbox" value="workshops"> Scheduled workshops</label>
-        <label><input type="checkbox" value="cohorts"> Peer cohorts</label>
-        <label><input type="checkbox" value="coaching"> One-on-one coaching</label>
-        <label><input type="checkbox" value="video"> Video courses</label>
-        <label><input type="checkbox" value="audio"> Audio content</label>
-        <label><input type="checkbox" value="inperson"> In-person sessions</label>
-      </div>
-    </form>
-  </section>
+
 
 </main>
 
 <footer role="contentinfo">
-  <p><strong>Having trouble? Need help?</strong></p>
-  <p>📧 <a href="mailto:droste-hub@example.com?subject=Droste%20Hub%20Issue&body=Describe%20the%20problem...">Report issues</a> (Accessibility • Technical • Content concerns)</p>
   <p style="margin-top: 1rem;">Built with ❤️ for self-directed learners • Open Source</p>
 </footer>
 
 <div class="modal" id="wizard-modal" role="dialog" aria-labelledby="wizard-title" aria-modal="true">
   <div class="modal-content">
-    <h2 id="wizard-title">Help Me Choose My Path</h2>
+    <h2 id="wizard-title">Help me mijn pad te kiezen</h2>
     <div class="wizard-step active" id="step-1">
-      <h3>Step 1 of 3: What draws you to AI literacy?</h3>
+      <h3>Stap 1 van 3: Welke insteek heb je?</h3>
       <div class="radio-group">
         <label class="radio-label">
           <input type="radio" name="interest" value="1,3,2">
-          I want to understand how it actually works
+          Ik wil weten hoe het eigenlijk werkt
         </label>
         <label class="radio-label">
           <input type="radio" name="interest" value="7,8,10">
-          I'm concerned about risks and harms
+          Ik maak me zorgen om risico's en nadelen
         </label>
         <label class="radio-label">
           <input type="radio" name="interest" value="10,11,12">
-          I care about who's affected by AI
+          Ik vind het belangijk op wie AI effect heeft
         </label>
         <label class="radio-label">
           <input type="radio" name="interest" value="4,5,6">
-          I need practical skills for using AI safely
+          Ik heb praktische tips nodig om veilig met AI te werken
         </label>
         <label class="radio-label">
           <input type="radio" name="interest" value="2,5,8">
-          I'm curious about limitations
+          Ik ben nieuwsgierig naar beperkingen
         </label>
         <label class="radio-label">
           <input type="radio" name="interest" value="9,11,12">
-          I want to understand the bigger picture
+          Ik wil het totaalplaatje begrijpen
         </label>
       </div>
       <div class="wizard-nav">
-        <button onclick="closeWizard()">Cancel</button>
-        <button onclick="wizardNext(2)">Next →</button>
+        <button onclick="closeWizard()">Annuleren</button>
+        <button onclick="wizardNext(2)">Volgende →</button>
       </div>
     </div>
     
     <div class="wizard-step" id="step-2">
-      <h3>Step 2 of 3: How do you prefer to learn?</h3>
+      <h3>Stap 2 van 3: Hoe leer jij graag?</h3>
       <div class="radio-group" id="frame-wizard"></div>
       <div class="wizard-nav">
-        <button onclick="wizardPrev(1)">← Back</button>
-        <button onclick="wizardNext(3)">Next →</button>
+        <button onclick="wizardPrev(1)">← Vorige</button>
+        <button onclick="wizardNext(3)">Volgende →</button>
       </div>
     </div>
     
     <div class="wizard-step" id="step-3">
-      <h3>Step 3 of 3: Where will you use this?</h3>
+      <h3>Stap 3 van 3: Hoe ga de prompt gebruiken?</h3>
       <div class="radio-group">
         <label class="radio-label">
           <input type="radio" name="wizard-service" value="lumo" checked>
-          Proton Lumo (Recommended for privacy)
+          Europees: Proton Lumo of Mistral le Chat
         </label>
         <label class="radio-label">
           <input type="radio" name="wizard-service" value="mistral">
-          Mistral le Chat (Open-source alternative)
+          Een van de grote Amerikaanse modellen
         </label>
         <label class="radio-label">
           <input type="radio" name="wizard-service" value="other">
-          I'll copy the prompt to use elsewhere
+          Ergens anders
         </label>
       </div>
       <div class="wizard-nav">
-        <button onclick="wizardPrev(2)">← Back</button>
-        <button onclick="completeWizard()">Start Learning! →</button>
+        <button onclick="wizardPrev(2)">← Terug</button>
+        <button onclick="completeWizard()">Begin met leren! →</button>
       </div>
     </div>
   </div>
@@ -654,31 +623,31 @@ footer a {
 
 <script>
 const TOPICS = [
-  {id: 1, title: "How AI \"Thinks\"", description: "Tokens, transformers, pattern prediction", details: "Understanding the technical mechanisms behind AI - no magic, just math and patterns."},
-  {id: 2, title: "Why AI Hallucinates", description: "Confidence without knowledge, confabulation mechanisms", details: "Why AI generates false information with confidence and how to spot it."},
-  {id: 3, title: "AI Architectures", description: "RAG, fine-tuning, agents, tool use, different approaches", details: "Different ways to build and customize AI systems."},
-  {id: 4, title: "Verification Practices", description: "Practical methods for fact-checking AI outputs", details: "How to verify AI claims and check sources (Bezoek de bron)."},
-  {id: 5, title: "Capability Boundaries", description: "What AI genuinely cannot do (yet or ever)", details: "Understanding AI's limitations prevents misuse and disappointment."},
-  {id: 6, title: "Privacy & Data Flows", description: "Where does your data go? What's logged?", details: "Understanding data privacy implications of AI use."},
-  {id: 7, title: "Training Data Problems", description: "Bias, representation, consent, GIGO", details: "How training data shapes AI behavior and introduces bias."},
-  {id: 8, title: "Organizational Risks", description: "Legal, reputational, operational exposures", details: "What can go wrong when organizations use AI."},
-  {id: 9, title: "Environmental & Economic Costs", description: "Energy, water, compute behind each query", details: "The hidden costs of AI: environmental impact and resource use."},
-  {id: 10, title: "Human Labor in AI", description: "RLHF, content moderators, exploitation (Kenya example)", details: "The human workers behind AI systems, often invisible and exploited."},
-  {id: 11, title: "Power & Control", description: "Who builds AI, who benefits, who decides", details: "Understanding who controls AI development and deployment."},
-  {id: 12, title: "Regulation Response", description: "AI Act, GDPR, why now, compliance landscape", details: "Legal and regulatory frameworks governing AI use."}
+  {id: 1, title: "Hoe AI \"Denkt\"", description: "Tokens, transformers, patroon herkenning", details: "Inzicht in de techniek achter AI - geen magie, maar wiskunde en patronen."},
+  {id: 2, title: "Waarom AI Hallucineert", description: "Vertrouwen zonder kennis, hallucinatie mechanismen", details: "Waarom AI onwaarheden vertelt met het grootste vertrouwen."},
+  {id: 3, title: "AI Architecturen", description: "RAG, fine-tuning, agents, tool use, diverse voremn", details: "Verschillende manieren om een AI systeem te bouwen en aan te passen."},
+  {id: 4, title: "Verificatiemanieren", description: "Praktische manieren om AI te fact-checken", details: "Hoe check je de uitspraken van AI (Bezoek de bron)."},
+  {id: 5, title: "Grenzen van AI", description: "Wat AI echt niet kan (nu of ooit)", details: "Inzicht in de beperkingen voorkomt teleurstelling."},
+  {id: 6, title: "Privacy & Data stromen", description: "Waar gaat mijn data heen, wat wordt opgeslagen?", details: "Inzicht in de privacyproblematiek van AI."},
+  {id: 7, title: "Training Data Problemen", description: "Bias, representation, toestemming, GIGO", details: "Hoe trainingdata het gedrag van AI maakt en bias introduceert."},
+  {id: 8, title: "Organisatorische Risico's", description: "Juridische, reputatie en operationele risico's", details: "Wat kan er mis gaan als een organisatie AI gebruikt."},
+  {id: 9, title: "Economische- en Milieu kosten", description: "Energie, water en compute bij elke vraag", details: "De verborgen kosten: milieu impact en verbruik van resources"},
+  {id: 10, title: "Menselijke arbeid in AI", description: "RLHF, content moderators, uitbuiting (voorbeeld Kenya)", details: "Het mensenwerk achter AI. Vaak verborgen en uitgebuit."},
+  {id: 11, title: "Macht en Controle", description: "Wie maakt AI, wie ontvangt de baten, wie beslist?", details: "Begrijpen wie AI ontwikkeling en uitrol stuurt."},
+  {id: 12, title: "Regulering", description: "AI verodening, AVG en de rest van het compliance landscahp", details: "Wet- en regelgeving omtrent AI."}
 ];
 
 const FRAMES = [
-  {id: 1, icon: "🔧", name: "Mechanist", hook: "Show me the technical architecture", details: "Wants diagrams, code, math"},
-  {id: 2, icon: "📖", name: "Storyteller", hook: "Give me narratives and cases", details: "Wants human stories, examples"},
-  {id: 3, icon: "🗂️", name: "Systematizer", hook: "Build me a mental model", details: "Wants taxonomies, frameworks"},
-  {id: 4, icon: "🔬", name: "Empiricist", hook: "Show me the evidence", details: "Wants studies, data, experiments"},
-  {id: 5, icon: "🎮", name: "Experientialist", hook: "Let me discover through doing", details: "Wants hands-on exploration"},
-  {id: 6, icon: "💬", name: "Socratic", hook: "Guide me through questions", details: "Learns through dialogue"},
-  {id: 7, icon: "🌉", name: "Analogist", hook: "Connect it to what I know", details: "Wants metaphors, comparisons"},
-  {id: 8, icon: "⚠️", name: "Critic", hook: "Show me what's wrong with it", details: "Learns through identifying problems"},
-  {id: 9, icon: "⚖️", name: "Ethicist", hook: "What are the moral implications?", details: "Wants to understand impact"},
-  {id: 10, icon: "⚡", name: "Pragmatist", hook: "What do I need to know right now?", details: "Wants essentials, action"}
+  {id: 1, icon: "🔧", name: "Mechanist", hook: "Laat me de technologie zien", details: "Wants diagrams, code, math"},
+  {id: 2, icon: "📖", name: "Verteller", hook: "Geef me het verhaal en situaties", details: "Wants human stories, examples"},
+  {id: 3, icon: "🗂️", name: "Systeemdenker", hook: "Bouww en mentaal model", details: "Wants taxonomies, frameworks"},
+  {id: 4, icon: "🔬", name: "Wetenschapper", hook: "Geef me bewijzen", details: "Wants studies, data, experiments"},
+  {id: 5, icon: "🎮", name: "Experiementeerder", hook: "Laat mij ontdekken door te doen", details: "Wants hands-on exploration"},
+  {id: 6, icon: "💬", name: "Socratisch", hook: "Leid mij langs vragen", details: "Learns through dialogue"},
+  {id: 7, icon: "🌉", name: "Analogist", hook: "Verbind het met wat ik al ken", details: "Wants metaphors, comparisons"},
+  {id: 8, icon: "⚠️", name: "Criticus", hook: "Laat me de duistere kanten begrijpen", details: "Learns through identifying problems"},
+  {id: 9, icon: "⚖️", name: "Ethicus", hook: "Wat zijn de morele gevolgen?", details: "Wants to understand impact"},
+  {id: 10, icon: "⚡", name: "Pragmaticus", hook: "Wat moet ik NU weten?", details: "Wants essentials, action"}
 ];
 
 const BOOKS = {
@@ -740,13 +709,13 @@ function updateProgress() {
   updateUnlocks();
   
   if (count < 3) {
-    document.getElementById('next-unlock').textContent = 'Next unlock: Tiny Models Playground (explore 3 topics)';
+    document.getElementById('next-unlock').textContent = 'Volgende unlock: Tiny Models Playground (explore 3 topics)';
   } else if (count < 6) {
-    document.getElementById('next-unlock').textContent = 'Next unlock: Personal Use Case Explorer (explore 6 topics)';
+    document.getElementById('next-unlock').textContent = 'Volgende unlock: Personal Use Case Explorer (explore 6 topics)';
   } else if (count < 9) {
-    document.getElementById('next-unlock').textContent = 'Next unlock: Prompting Mastery System (explore 9 topics)';
+    document.getElementById('next-unlock').textContent = 'Volgende unlock: Prompting Mastery System (explore 9 topics)';
   } else {
-    document.getElementById('next-unlock').textContent = 'All unlocks achieved! 🎉';
+    document.getElementById('next-unlock').textContent = 'Alles unlocked! 🎉';
   }
 }
 
@@ -909,10 +878,10 @@ TOPIC FOCUS: ${topic.details}
 
 LEARNING FRAME: ${frame.hook} - ${frame.details}
 
-CORE PRINCIPLES:
+CORE PRINCIPLES for interaction:
 
 1. THINK Framework:
-   - T: Is it True? (Verify, admit uncertainty)
+   - T: Is it True? (Verify, admit uncertainty, epistemological humility)
    - H: Is it Helpful? (Advance understanding)
    - I: Is it Inspiring? (Motivate learning)
    - N: Is it Necessary? (Stay relevant)
@@ -925,7 +894,8 @@ CORE PRINCIPLES:
    - Bezoek de bron (verify everything)
    Mention naturally when relevant.
 
-3. VLAM Transition Context:
+3. VLAM Transition Context:  
+   - Whithin a few months, we will have our own safe system
    - Skills transfer to any LLM system
    - This is capability-building, not tool training
    - Temporary infrastructure for permanent learning
@@ -941,6 +911,7 @@ CORE PRINCIPLES:
    - Question assumptions (including AI's own)
    - Consider multiple perspectives
    - Explore implications and trade-offs
+   - Preventing AI-workslop
 
 INTERACTION STYLE: Adapt to the ${frame.name} learning preference - ${frame.details}
 
@@ -953,6 +924,7 @@ BOUNDARIES:
 Begin by understanding where the learner is starting from, then guide deeper into "${topic.title}" using ${frame.name} approaches.
 
 ═══════════════════════════════════════════════════════
+(Instruction for the human)
 Copy this entire prompt to your AI service to begin learning.
 Remember to "Bezoek de bron" - verify any factual claims!
 ═══════════════════════════════════════════════════════`;
