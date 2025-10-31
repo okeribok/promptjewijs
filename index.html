@@ -1033,13 +1033,7 @@ function dismissEthicsBanner() {
 }
 
 
-  
-  const mailtoLink = `mailto:droste-hub@example.com?subject=${subject}&body=${body}`;
-  window.location.href = mailtoLink;
-  
-  this.innerHTML = '<p style="color: var(--success); font-weight: bold;">✓ Email client opened! Please send the message.</p>' +
-    (prefs.length ? `<p>You selected: ${prefs.join(', ')}</p>` : '');
-});
+
 
 document.querySelectorAll('input[name="service"]').forEach(radio => {
   radio.addEventListener('change', () => {
