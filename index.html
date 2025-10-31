@@ -588,14 +588,14 @@ footer a {
       </div>
     </div>
     
-    <div class="wizard-step" id="step-2">
-      <h3>Stap 2 van 3: Hoe leer jij graag?</h3>
-      <div class="radio-group" id="frame-wizard"></div>
-      <div class="wizard-nav">
-        <button onclick="wizardPrev(1)">← Vorige</button>
-        <button onclick="wizardNext(3)">Volgende →</button>
-      </div>
-    </div>
+<div class="wizard-step" id="step-2">
+  <h3>Stap 2 van 3: Hoe leer jij graag?</h3>
+  <div class="radio-group" id="frame-wizard"></div>
+  <div class="wizard-nav">
+    <button onclick="wizardPrev(1)">← Vorige</button>
+    <button onclick="wizardNext(3)">Volgende →</button>
+  </div>
+</div>
     
     <div class="wizard-step" id="step-3">
       <h3>Stap 3 van 3: Hoe ga de prompt gebruiken?</h3>
@@ -1032,23 +1032,7 @@ function dismissEthicsBanner() {
   saveState();
 }
 
-document.getElementById('waiting-list-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const email = document.getElementById('email-input').value;
-  const prefs = Array.from(document.querySelectorAll('.checkbox-group input:checked')).map(cb => cb.value);
-  
-  state.preferences = { email, formats: prefs };
-  saveState();
-  
-  // Generate mailto link
-  const subject = encodeURIComponent('Droste Hub - Alternative Learning Paths Interest');
-  const body = encodeURIComponent(
-    `I'm interested in alternative learning paths for AI literacy.\n\n` +
-    `My email: ${email}\n\n` +
-    `Preferred formats:\n` +
-    (prefs.length ? prefs.map(p => `- ${p}`).join('\n') : '- No preferences selected') +
-    `\n\nPlease notify me when these options become available.`
-  );
+
   
   const mailtoLink = `mailto:droste-hub@example.com?subject=${subject}&body=${body}`;
   window.location.href = mailtoLink;
