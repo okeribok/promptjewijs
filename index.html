@@ -675,16 +675,15 @@ let state = {
 };
 
 function loadState() {
-  const saved = localStorage.getItem('drosteState');
+  const saved = localStorage.getItem('promptjewijsstate');
   if (saved) {
     state = {...state, ...JSON.parse(saved)};
   }
   updateProgress();
-  checkEthicsBanner();
 }
 
 function saveState() {
-  localStorage.setItem('drosteState', JSON.stringify(state));
+  localStorage.setItem('promptjewijsstate', JSON.stringify(state));
 }
 
 function updateProgress() {
