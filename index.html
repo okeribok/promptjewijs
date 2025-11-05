@@ -690,7 +690,7 @@ function saveState() {
 
 function updateProgress() {
   const count = state.exploredTopics.length;
-  document.getElementById('progress-text').textContent = `${count}/12 topics explored`;
+  document.getElementById('progress-text').textContent = `${count}/12 topics verkend`;
   document.getElementById('progress-fill').style.width = `${(count/12)*100}%`;
   document.querySelector('.progress-bar').setAttribute('aria-valuenow', count);
   
